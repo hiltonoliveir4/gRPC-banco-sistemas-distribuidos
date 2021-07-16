@@ -1,0 +1,8 @@
+{
+  "name": "grpc-sd-2021-1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/rafaelfl/grpc-sd-2021-1.git",
+  "author": "Rafael Fernandes Lopes <rafael.fernandes@gmail.com>",
+  "license": "MIT"
+}
