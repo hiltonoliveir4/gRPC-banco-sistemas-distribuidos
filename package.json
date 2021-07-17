@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/rafaelfl/grpc-sd-2021-1.git",
   "author": "Rafael Fernandes Lopes <rafael.fernandes@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.3.5",
+    "@grpc/proto-loader": "^0.6.4"
+  }
 }
