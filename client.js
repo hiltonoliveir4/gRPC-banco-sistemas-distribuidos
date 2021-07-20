@@ -69,22 +69,22 @@ const client = new protoDescriptor.ServicoBancario("127.0.0.1:50051", grpc.crede
 //     console.log(transacao.data);
 // });
 
-// client.Extrato({}, (err, response) => {
-//     const listaDeTransacoes = response.transacoes;
+client.Extrato({}, (err, response) => {
+    const listaDeTransacoes = response.transacoes;
 
-//     console.log("EXTRATO DO BANCO SD S.A.\n");
+    console.log("EXTRATO DO BANCO SD S.A.\n");
 
-//     for (i = 0; i < listaDeTransacoes.length; i++) {
-//         const transacao = listaDeTransacoes[i];
+    for (i = 0; i < listaDeTransacoes.length; i++) {
+        const transacao = listaDeTransacoes[i];
 
-//         console.log(`${transacao.codigo}   ${transacao.descricao}\t${transacao.data}  R\$ ${transacao.valor}`);
-//     }
+        console.log(`${transacao.codigo}   ${transacao.descricao}\t${transacao.data}  R\$ ${transacao.valor}`);
+    }
 
-//     console.log("\n------ FIM DO EXTRATO");
-// })
+    console.log("\n------ FIM DO EXTRATO");
+})
 
 // client.Transferencia({
-//     valor: 1000.0,
+//     valor: 100.0,
 //     nomeCaixa: "CAIXA SD",
 //     codigoConta: 210,
 // }, (err, response) => {
@@ -98,17 +98,17 @@ const client = new protoDescriptor.ServicoBancario("127.0.0.1:50051", grpc.crede
 //     console.log(transacao.data);
 // });
 
-client.Compra({
-    valor: 150.0,
-    nomeEstabelecimento: "AMERICANAS"
+// client.Compra({
+//     valor: 150.0,
+//     nomeEstabelecimento: "AMERICANAS"
 
-}, (err, response) => {
-    const transacao = response;
+// }, (err, response) => {
+//     const transacao = response;
 
-    console.log(`Compra realizada com sucesso no valor de ${transacao.valor}!`);
+//     console.log(`Compra realizada com sucesso no valor de ${transacao.valor}!`);
 
-    console.log(transacao.codigo);
-    console.log(transacao.valor);
-    console.log(transacao.descricao);
-    console.log(transacao.data);
-});
+//     console.log(transacao.codigo);
+//     console.log(transacao.valor);
+//     console.log(transacao.descricao);
+//     console.log(transacao.data);
+// });
