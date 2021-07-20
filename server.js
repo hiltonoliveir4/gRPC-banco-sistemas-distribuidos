@@ -98,9 +98,78 @@ server.addService(servicoBancario.service, {
     },
 
 
-    Transferencia : function(call, callback) {},
+    Transferencia : function(call, callback) {
+        const dadosOperacao = call.request;
 
-    Compra : function(call, callback) {},
+        const valor = dadosOperacao.valor;
+        const nomeCaixa = dadosOperacao.nomeCaixa;
+        const codigoConta = dadosOperacao.codigoConta;
+
+        if (bd.saldo >= valor) {
+            bd.saldo -= valor;
+            bd.idTransacao++;
+
+            const transacao = {
+                codigo: bd.idTransacao,
+                valor: valor,
+                descricao: `TRANFERENCIA REALIZADA NO TERMINAL ${nomeCaixa} PARA A CONTA ${codigoConta}`,
+                data: Date.now().toString(),
+            };
+
+            bd.trasacoes.push(transacao);
+
+            console.log("Saldo atual: " + bd.saldo);
+
+            callback(null, transacao);
+        } else {
+            const transacao = {
+                codigo: -1,
+                valor: 0.0,
+                descricao: `TENTATIVA DE TRANSFERENCIA NO TERMINAL ${nomeCaixa} PARA A CONTA ${codigoConta} DEU ERRO`,
+                data: Date.now().toString(),
+            };
+
+            console.log("Saldo atual: " + bd.saldo);
+
+            callback(null, transacao);
+        }
+    },
+
+    Compra : function(call, callback) {
+        const dadosOperacao = call.request;
+
+        const valor = dadosOperacao.valor;
+        const nomeEstabelecimento = dadosOperacao.nomeEstabelecimento;
+
+        if (bd.saldo >= valor) {
+            bd.saldo -= valor;
+            bd.idTransacao++;
+
+            const transacao = {
+                codigo: bd.idTransacao,
+                valor: valor,
+                descricao: `COMPRA REALIZADA NA LOJA: ${nomeEstabelecimento}`,
+                data: Date.now().toString(),
+            };
+
+            bd.trasacoes.push(transacao);
+
+            console.log("Saldo atual: " + bd.saldo);
+
+            callback(null, transacao);
+        } else {
+            const transacao = {
+                codigo: -1,
+                valor: 0.0,
+                descricao: `COMPRA NÃO REALIZADA NA LOJA: ${nomeEstabelecimento}. SALDO INSUFICIENTE.`,
+                data: Date.now().toString(),
+            };
+
+            console.log("Saldo atual: " + bd.saldo);
+
+            callback(null, transacao);
+        }
+    },
 });
 
 server.bindAsync("0.0.0.0:50051", grpc.ServerCredentials.createInsecure(), (error, port) => {
